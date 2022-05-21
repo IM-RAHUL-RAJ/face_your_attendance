@@ -22,14 +22,12 @@ def tick():
 
 def clear():
     txt.delete(0, 'end')
-    res = "1)Take Images  >>>  2)Save Profile"
-    message1.configure(text=res)
+  
 
 
 def clear2():
     txt2.delete(0, 'end')
-    res = "1)Take Images  >>>  2)Save Profile"
-    message1.configure(text=res)
+    
 ######################################## USED STUFFS ############################################
     
 global key
@@ -79,7 +77,7 @@ frame4.place(relx=0.36, rely=0.09, relwidth=0.16, relheight=0.07)
 datef = tk.Label(frame4, text = day+"-"+mont[month]+"-"+year+"  |  ", fg="orange",bg="#262523" ,width=55 ,height=1,font=('times', 22, ' bold '))
 datef.pack(fill='both',expand=1)
 
-clock = tk.Label(frame3,fg="orange",bg="#262523" ,width=55 ,height=1,font=('times', 22, ' bold '))
+clock = tk.Label(frame3,fg="red",bg="#ffffff" ,width=55 ,height=1,font=('times', 22, ' bold '))
 clock.pack(fill='both',expand=1)
 tick()
 
@@ -112,6 +110,8 @@ lbl4.place(x=80, y=310)
 
 txt4 = tk.Entry(frame2,width=32 ,fg="black",font=('times', 15, ' bold ')  )
 txt4.place(x=30, y=346)
+lbl5 = tk.Label(frame1, text="Attendance",width=20  ,fg="black"  ,bg="#8450e0"  ,height=1 ,font=('times', 17, ' bold '))
+lbl5.place(x=100, y=115)
 
 message1 = tk.Label(frame2, text="1)Take Images  >>>  2)Save Profile" ,bg="#8450e0" ,fg="black"  ,width=39 ,height=1, activebackground = "yellow" ,font=('times', 15, ' bold '))
 message1.place(x=7, y=382)
@@ -119,30 +119,16 @@ message1.place(x=7, y=382)
 message = tk.Label(frame2, text="" ,bg="#8450e0" ,fg="black"  ,width=39,height=1, activebackground = "yellow" ,font=('times', 16, ' bold '))
 message.place(x=7, y=465)
 
-lbl5 = tk.Label(frame1, text="Attendance",width=20  ,fg="black"  ,bg="#8450e0"  ,height=1 ,font=('times', 17, ' bold '))
-lbl5.place(x=100, y=115)
 
-# res=0
-# exists = os.path.isfile("StudentDetails\StudentDetails.csv")
-# if exists:
-#     with open("StudentDetails\StudentDetails.csv", 'r') as csvFile1:
-#         reader1 = csv.reader(csvFile1)
-#         for l in reader1:
-#             res = res + 1
-#     res = (res // 2) - 1
-#     csvFile1.close()
-# else:
-#     res = 0
-# message.configure(text='Total Registration till now  : '+str(res))
+
 
 ##################### MENUBAR #################################
 
 menubar = tk.Menu(window,relief='ridge')
 filemenu = tk.Menu(menubar,tearoff=0)
-# filemenu.add_command(label='Change Password', command = change_pass)
-# filemenu.add_command(label='Contact Us', command = contact)
-filemenu.add_command(label='Exit',command = window.destroy)
 menubar.add_cascade(label='Help',font=('times', 29, ' bold '),menu=filemenu)
+filemenu.add_command(label='Exit',command = window.destroy)
+
 
 ################## TREEVIEW ATTENDANCE TABLE ####################
 
@@ -182,8 +168,10 @@ takeImg.place(x=30, y=420)
 
 trainImg = tk.Button(frame2, text="Save Profile" ,fg="white"  ,bg="#8872b3"  ,width=34  ,height=1, activebackground = "white" ,font=('times', 15, ' bold '))
 trainImg.place(x=30, y=500)
+
 trackImg = tk.Button(frame1, text="Take Attendance",fg="white"  ,bg="#8872b3"  ,width=35  ,height=1, activebackground = "white" ,font=('times', 15, ' bold '))
 trackImg.place(x=30,y=50)
+
 quitWindow = tk.Button(frame1, text="Quit", command=window.destroy  ,fg="black"  ,bg="red"  ,width=35 ,height=1, activebackground = "white" ,font=('times', 15, ' bold '))
 quitWindow.place(x=30, y=450)
 
