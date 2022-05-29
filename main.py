@@ -14,6 +14,66 @@ import time
 
 ###################################################################################
 
+def save_pass():
+    assure_path_exists("TrainingImageLabel/")
+    exists1 = os.path.isfile("TrainingImageLabel\psd.txt")
+    if exists1:
+        tf = open("TrainingImageLabel\psd.txt", "r")
+        key = tf.read()
+    else:
+        master.destroy()
+        new_pas = tsd.askstring('Old Password not found', 'Please enter a new password below', show='*')
+        if new_pas == None:
+            mess._show(title='No Password Entered', message='Password not set!! Please try again')
+        else:
+            tf = open("TrainingImageLabel\psd.txt", "w")
+            tf.write(new_pas)
+            mess._show(title='Password Registered', message='New password was registered successfully!!')
+            return
+    op = (old.get())
+    newp= (new.get())
+    nnewp = (nnew.get())
+    if (op == key):
+        if(newp == nnewp):
+            txf = open("TrainingImageLabel\psd.txt", "w")
+            txf.write(newp)
+        else:
+            mess._show(title='Error', message='Confirm new password again!!!')
+            return
+    else:
+        mess._show(title='Wrong Password', message='Please enter correct old password.')
+        return
+    mess._show(title='Password Changed', message='Password changed successfully!!')
+    master.destroy()
+    
+def change_pass():
+    global master
+    master = tk.Tk()
+    master.geometry("400x160")
+    master.resizable(False,False)
+    master.title("Change Password")
+    master.configure(background="white")
+    lbl4 = tk.Label(master,text='    Enter Old Password',bg='white',font=('times', 12, ' bold '))
+    lbl4.place(x=10,y=10)
+    global old
+    old=tk.Entry(master,width=25 ,fg="black",relief='solid',font=('times', 12, ' bold '),show='*')
+    old.place(x=180,y=10)
+    lbl5 = tk.Label(master, text='   Enter New Password', bg='white', font=('times', 12, ' bold '))
+    lbl5.place(x=10, y=45)
+    global new
+    new = tk.Entry(master, width=25, fg="black",relief='solid', font=('times', 12, ' bold '),show='*')
+    new.place(x=180, y=45)
+    lbl6 = tk.Label(master, text='Confirm New Password', bg='white', font=('times', 12, ' bold '))
+    lbl6.place(x=10, y=80)
+    global nnew
+    nnew = tk.Entry(master, width=25, fg="black", relief='solid',font=('times', 12, ' bold '),show='*')
+    nnew.place(x=180, y=80)
+    cancel=tk.Button(master,text="Cancel", command=master.destroy ,fg="black"  ,bg="red" ,height=1,width=25 , activebackground = "white" ,font=('times', 10, ' bold '))
+    cancel.place(x=200, y=120)
+    save1 = tk.Button(master, text="Save", command=save_pass, fg="black", bg="#3ece48", height = 1,width=25, activebackground="white", font=('times', 10, ' bold '))
+    save1.place(x=10, y=120)
+    master.mainloop()
+
 def tick():
     time_string = time.strftime('%H:%M:%S')
     clock.config(text=time_string)
@@ -29,6 +89,8 @@ def clear():
 def clear2():
     txt2.delete(0, 'end')
     
+def contact():
+    mess._show(title='Contact us', message="Please contact us on : '4ni19is073_a@nie.ac.in' ")    
 
 ################################################
 ###################################################################################
@@ -253,10 +315,10 @@ clock = tk.Label(frame3,fg="red",bg="#ffffff" ,width=55 ,height=1,font=('times',
 clock.pack(fill='both',expand=1)
 tick()
 
-head2 = tk.Label(frame2, text="                          Register Here                              ", fg="black",bg="#bab9b5" ,font=('times', 17, ' bold ') )
+head2 = tk.Label(frame2, text="                             Register Here                                 ", fg="black",bg="#bab9b5" ,font=('times', 17, ' bold ') )
 head2.grid(row=0,column=0)
 
-head1 = tk.Label(frame1, text="                       Mark Attendance                       ", fg="black",bg="#bab9b5" ,font=('times', 17, ' bold ') )
+head1 = tk.Label(frame1, text="                            Mark Attendance                           ", fg="black",bg="#bab9b5" ,font=('times', 17, ' bold ') )
 head1.place(x=0,y=0)
 
 lbl = tk.Label(frame2, text="Enter ID",width=20  ,height=1  ,fg="black"  ,bg="#8450e0" ,font=('times', 17, ' bold ') )
@@ -298,8 +360,8 @@ message.place(x=7, y=465)
 
 menubar = tk.Menu(window,relief='ridge')
 filemenu = tk.Menu(menubar,tearoff=0)
-filemenu.add_command(label='Change Password')
-filemenu.add_command(label='Contact Us')
+filemenu.add_command(label='Change Password',command=change_pass)
+filemenu.add_command(label='Contact Us',command=contact)
 filemenu.add_command(label='Exit',command = window.destroy)
 menubar.add_cascade(label='Help',font=('times', 29, ' bold '),menu=filemenu)
 
