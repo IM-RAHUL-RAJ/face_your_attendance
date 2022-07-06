@@ -140,9 +140,14 @@ def check(email):
  
     else:
         return False
- 
-         
-        
+import re
+regex=r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z{2,}]{2,}\b' 
+def check(mail):
+    if(re.fullmatch(regex, mail)):
+        return True       
+    return False
+
+    
 def TakeImages():
     check_haarcascadefile()
     columns = ['SERIAL NO.', '', 'ID', '', 'NAME','','EMAIL','','PHONE']
@@ -193,7 +198,7 @@ def TakeImages():
                 break
         cam.release()
         cv2.destroyAllWindows()
-        res = "Images Taken for ID : " + Id
+        res = "Images Taken for USN : " + Id
         row = [serial, '', Id, '', name,'',email,'',phone]
         with open('StudentDetails\StudentDetails.csv', 'a+') as csvFile:
             writer = csv.writer(csvFile)
@@ -204,10 +209,10 @@ def TakeImages():
         if (name.isalpha() == False):
             res = "Enter Correct name"
             message.configure(text=res)
-        if (email.checkemail()==False):
+        if (check(email)==False):
             res="Please enter a valid email address"
             message.configure(text=res)    
-        if (phone.isnumeric()==False):
+        if (phone.isnumeric()==False or len(phone)!=10):
             res="Enter correct phone number"
             message.configure(text=res)
                 
@@ -422,7 +427,7 @@ head2.grid(row=0,column=0)
 head1 = tk.Label(frame1, text="                            Mark Attendance                           ", fg="black",bg="#bab9b5" ,font=('times', 17, ' bold ') )
 head1.place(x=0,y=0)
 
-lbl = tk.Label(frame2, text="Enter ID",width=20  ,height=1  ,fg="black"  ,bg="#8450e0" ,font=('times', 17, ' bold ') )
+lbl = tk.Label(frame2, text="Enter USN",width=20  ,height=1  ,fg="black"  ,bg="#8450e0" ,font=('times', 17, ' bold ') )
 lbl.place(x=80, y=55)
 
 txt = tk.Entry(frame2,width=32 ,fg="black",font=('times', 15, ' bold '))
